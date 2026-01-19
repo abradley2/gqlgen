@@ -83,8 +83,10 @@ func Generate(cfg *config.Config, option ...Option) error {
 		}
 	}
 
-	if err := cfg.LoadSchema(); err != nil {
-		return fmt.Errorf("failed to load schema: %w", err)
+	if cfg.Schema == nil {
+		if err := cfg.LoadSchema(); err != nil {
+			return fmt.Errorf("failed to load schema: %w", err)
+		}
 	}
 
 	for _, p := range plugins {
